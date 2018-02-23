@@ -63,7 +63,7 @@ class TestA51CipherMethods(unittest.TestCase):
     def test_encrypt_word(self):
         '''Testing word encryption'''
         plaintext = 'Luther'
-        secret = 'infosec'
+        secret = '0infosec'
         x, y, z = a51.populate_registers(secret)
         keystream = a51.generate_keystream(plaintext, x, y, z)
         ciphertext = a51.encrypt(plaintext, keystream)
