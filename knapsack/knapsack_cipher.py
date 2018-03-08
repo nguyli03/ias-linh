@@ -12,21 +12,28 @@ def generate_sik(size: int = BLOCK_SIZE) -> list:
     Generate a superincreasing knapsack of the specified size
     Every member in the SIK is greater than the sum of all previous members
     '''
-    raise NotImplementedError
+    res =[0]*size
+    for i in range(0,size):
+        num = sum(res[:i])+random.randint(1,100)
+        res[i] = num
+    return res
 
 def calculate_n(sik: list) -> int:
     '''
     Calculate N value
     N is greater (by 1) than the sum of all members of the SIK
     '''
-    raise NotImplementedError
+    return sum(sik)+1
 
 def egcd(a: int, b: int) -> tuple:
     '''
     Extended gcd
     * Google: modular inverse python
     '''
-    raise NotImplementedError
+    if a == 0:
+        return (b, 0, 1)
+    g, y, x = egcd(b%a,a)
+    return (g, x - (b//a) * y, y)
 
 def modinv(sik: list, m: int = M, n: int = None) -> int:
     '''
@@ -35,14 +42,25 @@ def modinv(sik: list, m: int = M, n: int = None) -> int:
     * http://anh.cs.luc.edu/331/notes/xgcd.pdf
     * https://www.wolframalpha.com/input/?i=3067%5E-1+mod+44947432427
     '''
-    raise NotImplementedError
+    if n == None:
+        n = calculate_n(sik)
+    g, x, y = egcd(m, n)
+    if g != 1:
+        raise Exception('modular inverse does not exist')
+    else:
+        return x % n
 
 def generate_gk(sik: list, m: int = M, n: int = None) -> list:
     '''
     Generate a general knapsack from the provided superincreasing knapsack
     m and n are optional parameters
     '''
-    raise NotImplementedError
+    res = []
+    if n == None:
+        n = calculate_n(sik)
+    for num in sik:
+        res.append((num*m)%n)
+    return res
 
 def encrypt(plaintext: str, gk: list, block: int = BLOCK_SIZE) -> list:
     '''
@@ -53,7 +71,18 @@ def encrypt(plaintext: str, gk: list, block: int = BLOCK_SIZE) -> list:
     4. Calculate the sum of the values from the previous step and add them to a list
     5. Return the list of values
     '''
-    raise NotImplementedError
+    blocks = []
+    bintext = ''.join(format(ord(ch),'b').zfill(8) for ch in plaintext)
+    for i in range(0, len(bintext)//block+2):
+        pad = bintext[block*i:block*(i+1)]
+        x = list(pad)
+        x = [int(i) for i in x]
+        num = 0
+        for i in range(0, len(x)):
+            num += x[i]*gk[i]
+        if num>0:
+            blocks.append(num)
+    return blocks
 
 def decrypt(ciphertext: list, sik: list, n: int = None, inverse: int = None, block: int = BLOCK_SIZE) -> str:
     '''
@@ -68,8 +97,31 @@ def decrypt(ciphertext: list, sik: list, n: int = None, inverse: int = None, blo
       5. Trim trailing 0s if necessary
     4. Return the resulting string
     '''
-    raise NotImplementedError
-
+    if n == None:
+        n = calculate_n(sik)
+    if inverse == None:
+        inverse = modinv(sik,n=n)
+    blocks = []
+    for num in ciphertext:
+        sumNo = num*inverse%n
+        res = [0]*len(sik)
+        for i in range(len(sik)-1,-1,-1):
+            if sik[i] <= sumNo:
+                res[i] =1
+                sumNo -= sik[i]
+        blocks += res
+    # print(blocks)
+    bintext = ''.join(str(x) for x in blocks)
+    res = ''
+    # print("bintext is: "+bintext+'\n')
+    # print("len of bintext is: "+str(len(bintext))+'\n')
+    print("ias is :"+(''.join(format(ord(ch),'b').zfill(8) for ch in "Information Assurance and Security"))+'\n')
+    # print("len of ias is: "+str(len(''.join(format(ord(ch),'b').zfill(8) for ch in "Information Assurance and Security")))+'\n')
+    for i in range(0,len(bintext),8):
+        ch = bintext[i:i+8]
+        if ch != '00000000':
+            res += chr(int(ch, 2))
+    return res
 
 def main():
     '''
