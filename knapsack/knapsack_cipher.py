@@ -115,7 +115,7 @@ def decrypt(ciphertext: list, sik: list, n: int = None, inverse: int = None, blo
     res = ''
     # print("bintext is: "+bintext+'\n')
     # print("len of bintext is: "+str(len(bintext))+'\n')
-    print("ias is :"+(''.join(format(ord(ch),'b').zfill(8) for ch in "Information Assurance and Security"))+'\n')
+    # print("ias is :"+(''.join(format(ord(ch),'b').zfill(8) for ch in "Information Assurance and Security"))+'\n')
     # print("len of ias is: "+str(len(''.join(format(ord(ch),'b').zfill(8) for ch in "Information Assurance and Security")))+'\n')
     for i in range(0,len(bintext),8):
         ch = bintext[i:i+8]
