@@ -1,0 +1,5 @@
+./hashcat-4.1.0/hashcat -m 1800 -a 0 shadow rockyou.txt -O
+./hashcat-4.1.0/hashcat -m 500 -a 0 passwd rockyou.txt -O
+./hashcat-4.1.0/hashcat -m 1000 -a 0 sam rockyou.txt -O
+./hashcat-4.1.0/hashcat -m 1000 -a 0 sam crackdown.txt -O
+./hashcat-4.1.0/hashcat -m 1000 -a 0 sam ultimate.txt -O
