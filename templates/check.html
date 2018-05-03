@@ -32,7 +32,7 @@ html {
 body {
   font-family: 'Trocchi', serif;
   background-image: url("../static/background.jpg");
-
+  color: white;
 }
 h1 {
   float: right;
@@ -62,16 +62,27 @@ p{
 <div class="container" id ='header'>
   <h1>SQL Injection</h1>
 </div>
-<p>Find a user by enter the name in this box</p>
+
 <div class="container">
-  <form class="" action="check" method="post">
-    <div class="input-group" id="username">
-      <input type="text" class="form-control" placeholder="Username" name = 'username'>
-      <span class="input-group-btn">
-           <button class="btn btn-default" type="submit">Submit!</button>
-      </span>
-     </div>
-  </form>
+{%if result|length == 10 %}
+  <p>The database have 10 records and the result of this sql call is {{result|length}} records. In real world, the database will be revealed.</p>
+  <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Password</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for (username,password) in result%}
+        <tr>
+          <td>{{username}}</td>
+          <td>{{password}}</td>
+        </tr>
+        {%endfor%}
+      </tbody>
+  </table>
+{%endif%}
 </div>
 
 </body>
