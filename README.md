@@ -1,2 +1,1 @@
-# ias-class-pub
-Information Assurance and Security (CS439)
+Please visit https://linh-sqlinjection.herokuapp.com/ and enter in  'username' or 1=1 to see the result. Drop table SQL injection would show error since I set up the backend to show the data returned and drop table would not return any data. 
