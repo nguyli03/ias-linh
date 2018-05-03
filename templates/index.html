@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Pwned</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<style>
+html {
+  /* The image used */
+  background-image: url("../static/background.jpg");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+#header { height: 50px; width: 100%; }
+#username { margin-top: 20px; margin-bottom: 20px; }
+#password { margin-top: 20px; margin-bottom: 20px; }
+body {
+  font-family: 'Trocchi', serif;
+  background-image: url("../static/background.jpg");
+
+}
+h1 {
+  float: right;
+  position: relative;
+  left: -40%; /* or right 50% */
+  text-align: left;
+  color: white;
+  font-family: 'Trocchi', serif;
+  font-size: 45px;
+  font-weight: normal;
+  line-height: 48px;
+  margin: 0
+}
+</style>
+
+<body>
+
+<div class="container" id ='header'>
+  <h1>Let's delete our database?</h1>
+</div>
+
+<div class="container">
+
+  <form class="" action="check" method="post">
+    <div class="input-group" id="username">
+      <input type="text" class="form-control" placeholder="Username" name = 'username'>
+      <span class="input-group-btn">
+           <button class="btn btn-default" type="submit">Submit!</button>
+      </span>
+     </div>
+
+    <div class="input-group" id='password'>
+       <input type="password" class="form-control" placeholder="Password" name = 'password'>
+       <span class="input-group-btn">
+            <button class="btn btn-default" type="submit" >Submit!</button>
+       </span>
+   </div>
+  </form>
+</div>
+
+</body>
+</html>
